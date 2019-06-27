@@ -1,9 +1,6 @@
 import numpy as np
 import cell_states
 
-WIN_FOR_X = np.array([cell_states.X, cell_states.X, cell_states.X], np.uint8)
-WIN_FOR_O = np.array([cell_states.O, cell_states.O, cell_states.O], np.uint8)
-
 def getWinner(isWinForX, isWinForO):
     if isWinForX:
         return 1
@@ -19,19 +16,21 @@ def getGameState(board_state):
     Parameters
     ----------
     board_state (Numpy Array): Contains the current state of the board as:
-        0: Empty cell.
-        1: X.
-        2: O. 
+        0: Empty cell
+        1: X
+        2: O
 
     Returns
     -------
     Integer: The state of the game. Possible results:
-        0: Game incomplete.
-        1: X wins.
-        2: O wins.
-        3: Draw.
+        0: Game incomplete
+        1: X wins
+        2: O wins
+        3: Draw
     """
     N = len(board_state) # Get in for an N x N board
+    WIN_FOR_X = np.full(N, cell_states.X, np.uint8)
+    WIN_FOR_O = np.full(N, cell_states.O, np.uint8)
 
     # Check Rows
     for row in board_state:
