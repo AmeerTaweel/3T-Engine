@@ -1,6 +1,7 @@
 import numpy as np
 import copy
 from referee import getGameState
+from utils import printS
 
 def reduceDimensions(matrix):
     """
@@ -25,13 +26,22 @@ def reduceDimensions(matrix):
 def playLevelDeeper(prev_boards, n, p_type):
     size = pow(n, 2)
     current_boards = []
-    for prev_board in prev_boards:
+    for i, prev_board in enumerate(prev_boards):
+        if i % 100 == 0:
+            printS(".")
         for i in range(size):
             current_board = copy.deepcopy(prev_board)
             if current_board[i] != 0: continue
             current_board[i] = p_type
             if getGameState(np.reshape(current_board, (-1, n))) == 0:
-                current_boards.append(current_board)
+                # Prevent duplicates
+                isUnique = True
+                for board in current_boards:
+                    if (board == current_board).all():
+                        isUnique = False
+                if isUnique:
+                    current_boards.append(current_board)
+    print("")
     return current_boards
 
 def generateGames(N = 3):
@@ -54,11 +64,19 @@ def generateGames(N = 3):
     boards = base_board + ([[]] * (NxN)) # Generated boards will be put here
 
     for i in range(NxN - 1):
+        printS(f"Generating games with {i + 1} moves")
         boards[i + 1] = playLevelDeeper(boards[i], N, (i % 2) + 1)
-    return reduceDimensions(boards[1 : len(boards)])
+    return reduceDimensions(boards)
 
 # This script will generate and save all possible valid uncompleted games.
 # Games will be saved as 'dataset.npy' into the 'generated' folder.
 N = 3 # N can't be less than one
+
+print("Generating dataset")
+print(f"Board size: {N}x{N}")
+
 games = generateGames(N) # N = 3 is the default
+
+print(f"Number of generated games: {len(games)}")
+
 np.save('./src/generated/dataset.npy', games)
