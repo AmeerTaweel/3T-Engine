@@ -51,6 +51,7 @@ def predictBestNextMove(game, N):
     Parameters
     ----------
     game: One-dimensional array, representing the board state.
+    N (Int): Number of rows/columns in board
 
     Returns
     -------
