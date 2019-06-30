@@ -1,2 +1,10 @@
-def printS(s):
-    print(s, end = "", flush = True)
+class TerminalText():
+    BLUE = '\033[94m'
+    GREEN = '\033[92m'
+    PURPLE = '\033[95m'
+    RED = '\033[91m'
+    YELLOW = '\033[93m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+    END = '\033[0m'
+    ERASE = '\x1b[1A\x1b[2K'
