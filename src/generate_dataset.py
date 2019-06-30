@@ -1,82 +1,42 @@
+import time
 import numpy as np
-import copy
-from referee import getGameState
-from utils import printS
+from utils import TerminalText as tt
+from generate_games import generateGames
+from generate_labels import generateLabels
 
-def reduceDimensions(matrix):
-    """
-    Decrease any list/matrix dimensions by one.
+start_time = time.time() # To measure script running time
 
-    Parameters
-    ----------
-    matrix: Multidimensional Array
+# Number of rows/columns in the game board
+N = 3 # N can't be less than one 
+areGamesGenerated = False # Change it to True if games are already saved in the generated folder
+areLabelsGenerated = False # Change it to True if labels are already saved in the generated folder
 
-    Returns
-    -------
-    list: The matrix after reducing it's dimensions.
-    """
-    # Doesn't accept vectors/(1-dimensional matrices)
-    # If matrix is a vector return it without changes
-    if (type(matrix[0]) is not list): return matrix
-    new_matrix = []
-    for item in matrix:
-        new_matrix += item
-    return new_matrix
+games = []
+labels = []
+M = 0
 
-def playLevelDeeper(prev_boards, n, p_type):
-    size = pow(n, 2)
-    current_boards = []
-    for i, prev_board in enumerate(prev_boards):
-        if i % 100 == 0:
-            printS(".")
-        for i in range(size):
-            current_board = copy.deepcopy(prev_board)
-            if current_board[i] != 0: continue
-            current_board[i] = p_type
-            if getGameState(np.reshape(current_board, (-1, n))) == 0:
-                # Prevent duplicates
-                isUnique = True
-                for board in current_boards:
-                    if (board == current_board).all():
-                        isUnique = False
-                if isUnique:
-                    current_boards.append(current_board)
-    print("")
-    return current_boards
+print("")
+print(tt.GREEN + "Generating Dataset..." + tt.END)
+print(tt.GREEN + "Board Size: " + tt.END + f"{N}x{N}")
 
-def generateGames(N = 3):
-    """
-    Generates all possible valid uncompleted Tic Tac Toe games on an NxN board.
+if not areGamesGenerated:
+    games = generateGames(N)
+    M = len(games)
+    np.save('./src/generated/games.npy', games) # Save generated games
+else:
+    print(tt.GREEN + "Games already generated. Loading games..." + tt.END)
+    games = np.load('./src/generated/games.npy')
 
-    Parameters
-    ----------
-    N (Int): Number of rows/columns in board
+if not areLabelsGenerated:
+    labels = generateLabels(N, games)
+    np.save('./src/generated/labels.npy', labels) # Save generated labels
+else:
+    print(tt.GREEN + "Labels already generated. Loading labels..." + tt.END)
+    labels = np.load('./src/generated/labels.npy')
 
-    Returns
-    -------
-    list: All possible valid uncompleted games.
-    """
-    if N < 1: # N can't be less than one
-        N = 1
-    NxN = pow(N, 2)
+total_time = time.time() - start_time
+running_time_in_seconds = "%.2f" % total_time # Formatted running time
 
-    base_board = [[np.full(NxN, 0, np.uint8)]]
-    boards = base_board + ([[]] * (NxN)) # Generated boards will be put here
-
-    for i in range(NxN - 1):
-        printS(f"Generating games with {i + 1} moves")
-        boards[i + 1] = playLevelDeeper(boards[i], N, (i % 2) + 1)
-    return reduceDimensions(boards)
-
-# This script will generate and save all possible valid uncompleted games.
-# Games will be saved as 'dataset.npy' into the 'generated' folder.
-N = 3 # N can't be less than one
-
-print("Generating dataset")
-print(f"Board size: {N}x{N}")
-
-games = generateGames(N) # N = 3 is the default
-
-print(f"Number of generated games: {len(games)}")
-
-np.save('./src/generated/dataset.npy', games)
+print(tt.GREEN + "Generated dataset with " + tt.END + f"{M}" + tt.GREEN + " games in" + tt.END
+        + f" {running_time_in_seconds} " + tt.GREEN + "seconds." + tt.END)
+print("")
