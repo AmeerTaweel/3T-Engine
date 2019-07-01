@@ -41,8 +41,8 @@ def minMax(node, n, isMax, goal):
     p_type = getPlayingType(node.game)
     node.children = genrateChildren(node, pow(n, 2), p_type)
     if isMax:
-        return max([minMax(child, n, False, goal) for child in node.children])
-    return min([minMax(child, n, True, goal) for child in node.children])
+        return np.max([minMax(child, n, False, goal) for child in node.children])
+    return np.min([minMax(child, n, True, goal) for child in node.children])
 
 def predictBestNextMove(game, N):
     """
