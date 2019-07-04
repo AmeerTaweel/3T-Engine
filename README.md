@@ -8,4 +8,4 @@
 
 ### Generate Dataset
 
-To generate a set of games for any given board size, run the `generate_database` script. The default is a 3 by 3 board but you can change that by changing the variable `N`.
+To generate a set of all possible Tic Tac Toe positions in a certain board dimensions, with the best possible move for each position as labels, run the `generate_dataset.py` script in the `src/` folder. The default is a **3 by 3** board but you can change that by changing the variable `N`.
