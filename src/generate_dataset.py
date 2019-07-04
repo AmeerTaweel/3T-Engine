@@ -9,8 +9,8 @@ start_time = time.time() # To measure script running time
 
 # Number of rows/columns in the game board
 N = 3 # N can't be less than one 
-areGamesGenerated = True # Change it to True if games are already saved in the generated folder
-areLabelsGenerated = True # // // // // // labels // // // // // // //
+areGamesGenerated = False # Change it to True if games are already saved in the generated folder
+areLabelsGenerated = False # // // // // // labels // // // // // // //
 areFeaturesGenerated = False # // // // // // features // // // // // // //
 
 games = []
