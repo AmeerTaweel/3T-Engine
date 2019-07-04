@@ -2,6 +2,7 @@ import numpy as np
 import collections
 import copy
 from referee import getGameState
+import constants
 
 class Node():
     def __init__(self, game):
@@ -14,14 +15,14 @@ def getPlayingType(game):
     X_OCCURRENCES = cells_values[1]
     O_OCCURRENCES = cells_values[2]
     if X_OCCURRENCES == O_OCCURRENCES:
-        return 1
-    return 2
+        return constants.X
+    return constants.O
 
 def genrateChildren(node, size, p_type):
     boards = []
     for i in range(size):
         nextLevel = Node(copy.deepcopy(node.game))
-        if nextLevel.game[i] != 0: continue
+        if nextLevel.game[i] != constants.EMPTY_CELL: continue
         nextLevel.game[i] = p_type
         nextLevel.index = i
         boards.append(nextLevel)
@@ -29,13 +30,13 @@ def genrateChildren(node, size, p_type):
 
 def minMax(node, n, isMax, goal):
     state = getGameState(np.reshape(node.game, (-1, n)))
-    if  state > 0:
+    if  state > constants.GAME_INCOMPLETE:
         if state == goal:
-            return 10
-        elif state == 3:
-            return 0
+            return constants.MM_WIN
+        elif state == constants.DRAW:
+            return constants.MM_DRAW
         else:
-            return -10
+            return constants.MM_LOSS
 
     # Decide wether we play X or O.
     p_type = getPlayingType(node.game)

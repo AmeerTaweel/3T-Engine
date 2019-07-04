@@ -3,6 +3,7 @@ import numpy as np
 import copy
 from utils import TerminalText as tt
 from referee import getGameState
+import constants
 
 def reduceDimensions(matrix):
     """
@@ -30,9 +31,9 @@ def playLevelDeeper(prev_boards, n, p_type):
     for prev_board in prev_boards:
         for i in range(size):
             current_board = copy.deepcopy(prev_board)
-            if current_board[i] != 0: continue
+            if current_board[i] != constants.EMPTY_CELL: continue
             current_board[i] = p_type
-            if getGameState(np.reshape(current_board, (-1, n))) == 0:
+            if getGameState(np.reshape(current_board, (-1, n))) == constants.GAME_INCOMPLETE:
                 # Prevent duplicates
                 isUnique = True
                 for board in current_boards:
@@ -59,7 +60,7 @@ def generateGames(N):
 
     NxN = pow(N, 2)
 
-    base_board = [[np.full(NxN, 0, np.uint8)]]
+    base_board = [[np.full(NxN, constants.EMPTY_CELL, np.uint8)]]
     boards = base_board + ([[]] * (NxN)) # Generated boards will be put here
 
     print(tt.BLUE + "Generating Games..." + tt.END)

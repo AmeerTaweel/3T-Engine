@@ -1,13 +1,13 @@
 import numpy as np
-import cell_states
+import constants
 
 def getWinner(isWinForX, isWinForO):
     if isWinForX:
-        return 1
+        return constants.X_WINS
     elif isWinForO:
-        return 2
+        return constants.O_WINS
     else:
-        return 0
+        return constants.GAME_INCOMPLETE
 
 def getGameState(board_state):
     """
@@ -29,20 +29,20 @@ def getGameState(board_state):
         3: Draw
     """
     N = len(board_state) # Get in for an N x N board
-    WIN_FOR_X = np.full(N, cell_states.X, np.uint8)
-    WIN_FOR_O = np.full(N, cell_states.O, np.uint8)
+    WIN_FOR_X = np.full(N, constants.X, np.uint8)
+    WIN_FOR_O = np.full(N, constants.O, np.uint8)
 
     # Check Rows
     for row in board_state:
         result = getWinner((row == WIN_FOR_X).all(), (row == WIN_FOR_O).all())
-        if result > 0:
+        if result > constants.GAME_INCOMPLETE:
             return result
     
     # Check Columns
     for i in range(N):
         column = board_state[:, i]
         result = getWinner((column == WIN_FOR_X).all(), (column == WIN_FOR_O).all())
-        if result > 0:
+        if result > constants.GAME_INCOMPLETE:
             return result
     
     # Check Diagonals
@@ -53,8 +53,8 @@ def getGameState(board_state):
         diagonals[1, i] = board_state[i, j]
     for diagonal in diagonals:
         result = getWinner((diagonal == WIN_FOR_X).all(), (diagonal == WIN_FOR_O).all())
-        if result > 0:
+        if result > constants.GAME_INCOMPLETE:
             return result
-    if 0 in board_state:
-        return 0
-    return 3
+    if constants.EMPTY_CELL in board_state:
+        return constants.GAME_INCOMPLETE
+    return constants.DRAW

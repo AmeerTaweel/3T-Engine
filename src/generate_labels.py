@@ -2,6 +2,7 @@ import time
 import numpy as np
 from utils import TerminalText as tt
 from min_max_player import predictBestNextMove
+import constants
 
 def generateLabels(N, games):
     """
@@ -21,8 +22,7 @@ def generateLabels(N, games):
 
     M = len(games)
 
-    labels = np.full(M, 0, np.uint8)
-
+    labels = np.full(M, constants.EMPTY_CELL, np.uint8)
     print(tt.BLUE + "Generating Labels..." + tt.END)
     print("") # To prevent the code in the loop from erasing the "Board Size" line
 
