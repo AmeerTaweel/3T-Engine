@@ -9,8 +9,8 @@ start_time = time.time() # To measure script running time
 
 # Number of rows/columns in the game board
 N = 3 # N can't be less than one 
-areGamesGenerated = False # Change it to True if games are already saved in the generated folder
-areLabelsGenerated = False # // // // // // labels // // // // // // //
+areGamesGenerated = True # Change it to True if games are already saved in the generated folder
+areLabelsGenerated = True # // // // // // labels // // // // // // //
 areFeaturesGenerated = False # // // // // // features // // // // // // //
 
 games = []
@@ -46,7 +46,7 @@ else:
 print("")
 if not areFeaturesGenerated:
     features = generateFeatures(games, M, pow(N, 2))
-    np.save('./src/generated/features.npy', labels) # Save generated features
+    np.save('./src/generated/features.npy', features) # Save generated features
 else:
     print(tt.GREEN + "Features already generated. Loading features..." + tt.END)
     features = np.load('./src/generated/features.npy')
