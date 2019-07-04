@@ -57,8 +57,6 @@ def generateGames(N):
 
     start_time = time.time() # To measure script running time
 
-    if N < 1: # N can't be less than one
-        N = 1
     NxN = pow(N, 2)
 
     base_board = [[np.full(NxN, 0, np.uint8)]]

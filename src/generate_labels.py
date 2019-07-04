@@ -19,8 +19,6 @@ def generateLabels(N, games):
 
     start_time = time.time() # To measure script running time
 
-    if N < 1: # N can't be less than one
-        N = 1
     M = len(games)
 
     labels = np.full(M, 0, np.uint8)

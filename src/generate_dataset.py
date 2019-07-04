@@ -15,6 +15,9 @@ games = []
 labels = []
 M = 0
 
+if N < 1:
+    N = 1
+
 print("")
 print(tt.GREEN + "Generating Dataset..." + tt.END)
 print(tt.GREEN + "Board Size: " + tt.END + f"{N}x{N}")
