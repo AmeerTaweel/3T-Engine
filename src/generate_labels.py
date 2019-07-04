@@ -23,7 +23,6 @@ def generateLabels(N, games):
 
     labels = np.full(M, 0, np.uint8)
 
-    print("")
     print(tt.BLUE + "Generating Labels..." + tt.END)
     print("") # To prevent the code in the loop from erasing the "Board Size" line
 
@@ -38,6 +37,5 @@ def generateLabels(N, games):
     print(tt.BLUE + "Generated labels" + tt.BOLD + " (best moves) " + tt.END
         + tt.BLUE + "for " + tt.END + f"{M}" + tt.BLUE + " games in" + tt.END
         + f" {running_time_in_seconds} " + tt.BLUE + "seconds." + tt.END)
-    print("")
 
     return labels

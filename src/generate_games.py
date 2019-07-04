@@ -62,7 +62,6 @@ def generateGames(N):
     base_board = [[np.full(NxN, 0, np.uint8)]]
     boards = base_board + ([[]] * (NxN)) # Generated boards will be put here
 
-    print("")
     print(tt.BLUE + "Generating Games..." + tt.END)
     print("") # To prevent the code in the loop from erasing the "Board Size" line
 
@@ -79,6 +78,5 @@ def generateGames(N):
 
     print(tt.BLUE + "Generated " + tt.END + f"{M}" + tt.BLUE + " games in" + tt.END
         + f" {running_time_in_seconds} " + tt.BLUE + "seconds." + tt.END)
-    print("")
 
     return games
