@@ -18,8 +18,19 @@ for example, label, merge in zip(examples, labels, Xy_shuffled):
 
 np.random.shuffle(Xy_shuffled)
 
+# Split into training and test set
+training_percentage = 0.7 # The remaining 1 - training_percentage will be the test percentage
+
+# pylint: disable=unbalanced-tuple-unpacking
+# The comment above prevents pylint from showing a false warning
+Xy_training, Xy_test = np.split(Xy_shuffled, [int(training_percentage * M)])
+
 # Separate examples and labels
-X = Xy_shuffled[:, : N]
-y = Xy_shuffled[:, N]
+X_training = Xy_training[:, : N]
+y_training = Xy_training[:, N]
+
+X_test = Xy_test[:, : N]
+y_test = Xy_test[:, N]
+
 
 Theta = np.zeros((N, 1), np.uint8)
