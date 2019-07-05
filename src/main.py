@@ -1,5 +1,5 @@
 import numpy as np
-# import tensorflow as tf
+import tensorflow as tf
 
 # Don't run this script before generating dataset
 
@@ -31,6 +31,3 @@ y_training = Xy_training[:, N]
 
 X_test = Xy_test[:, : N]
 y_test = Xy_test[:, N]
-
-
-Theta = np.zeros((N, 1), np.uint8)
