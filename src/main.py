@@ -3,6 +3,10 @@ import numpy as np
 import tensorflow as tf
 from utils import TerminalText as tt
 
+import logging
+logger = tf.get_logger()
+logger.setLevel(logging.ERROR) # Make TensorFlow log errors only
+
 # Don't run this script before generating dataset
 
 start_time = time.time() # To measure script running time
