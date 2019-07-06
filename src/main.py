@@ -1,11 +1,10 @@
+import os
 import time
 import numpy as np
 import tensorflow as tf
 from utils import TerminalText as tt
 
-import logging
-logger = tf.get_logger()
-logger.setLevel(logging.ERROR) # Make TensorFlow log errors only
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = str(2)  # Make TensorFlow log errors only
 
 # Don't run this script before generating dataset
 
@@ -55,3 +54,16 @@ y_test = Xy_test[:, N]
 m_test = len(X_test)
 
 print(tt.GREEN + "Number of test examples: " + tt.END + f"{m_test}")
+
+# Setup model layers
+model = tf.keras.Sequential([
+    tf.keras.layers.Dense(128, activation = tf.nn.relu),
+    tf.keras.layers.Dense(9,  activation = tf.nn.softmax)
+])
+
+model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+
+history = model.fit(X_training, y_training, epochs = 500, verbose = False)
+
+test_loss, test_accuracy = model.evaluate(X_test, y_test)
+print('Accuracy on test dataset:', test_accuracy)
