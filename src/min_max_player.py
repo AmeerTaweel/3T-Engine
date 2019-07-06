@@ -1,7 +1,7 @@
 import numpy as np
-import collections
 import copy
 from referee import getGameState
+from utils import getPlayingType
 import constants
 
 class Node():
@@ -9,14 +9,6 @@ class Node():
         self.game = game
         self.children = []
         self.index = None
-
-def getPlayingType(game):
-    cells_values = collections.Counter(game)
-    X_OCCURRENCES = cells_values[1]
-    O_OCCURRENCES = cells_values[2]
-    if X_OCCURRENCES == O_OCCURRENCES:
-        return constants.X
-    return constants.O
 
 def genrateChildren(node, size, p_type):
     boards = []
