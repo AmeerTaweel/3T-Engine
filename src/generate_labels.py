@@ -22,14 +22,14 @@ def generateLabels(N, games):
 
     M = len(games)
 
-    labels = np.full(M, constants.EMPTY_CELL, np.uint8)
+    labels = np.full((M, pow(N, 2)), constants.EMPTY_CELL, np.uint8)
     print(tt.BLUE + "Generating Labels..." + tt.END)
     print("") # To prevent the code in the loop from erasing the "Board Size" line
 
     for i, game in enumerate(games):
         percentage = "%.2f" % (((i + 1) / M) * 100) # Limit to two decimal points
         print(tt.ERASE + tt.BLUE + "MinMax Predicting Best Moves: " + tt.END + f"{percentage}%")
-        labels[i] = predictBestNextMove(game, N)
+        labels[i, predictBestNextMove(game, N)] = 1
 
     total_time = time.time() - start_time
     running_time_in_seconds = "%.2f" % total_time # Formatted running time
