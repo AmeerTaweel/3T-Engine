@@ -59,7 +59,7 @@ print(tt.GREEN + "Number of test examples: " + tt.END + f"{m_test}")
 
 # Setup model layers
 model = tf.keras.Sequential([
-    tf.keras.layers.Dense(128, tf.nn.sigmoid),
+    tf.keras.layers.Dense(N, tf.nn.sigmoid),
     tf.keras.layers.Dense(C, tf.nn.softmax)
 ])
 
@@ -67,7 +67,7 @@ model.compile(tf.keras.optimizers.Adam(), "categorical_crossentropy", ["accuracy
 
 print(tt.GREEN + "Training the model..." + tt.END)
 
-history = model.fit(X_training, y_training, epochs = 10)
+training_history = model.fit(X_training, y_training, epochs = 10)
 
 print(tt.GREEN + "Finished training the model." + tt.END)
 
