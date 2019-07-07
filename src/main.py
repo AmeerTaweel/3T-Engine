@@ -2,6 +2,7 @@ import os
 import time
 import numpy as np
 import tensorflow as tf
+import matplotlib.pyplot as mplt
 from utils import TerminalText as tt
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = str(2)  # Make TensorFlow log errors only
@@ -70,6 +71,11 @@ print(tt.GREEN + "Training the model..." + tt.END)
 training_history = model.fit(X_training, y_training, epochs = 10)
 
 print(tt.GREEN + "Finished training the model." + tt.END)
+
+mplt.xlabel("Number of Epochs") # Plot the loss over epochs
+mplt.ylabel("Loss Magnitude")
+mplt.plot(training_history.history["loss"])
+mplt.show()
 
 test_loss, test_accuracy = model.evaluate(X_test, y_test)
 print('Accuracy on test dataset:', test_accuracy)
