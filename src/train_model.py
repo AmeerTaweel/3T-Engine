@@ -14,7 +14,6 @@ def splitXy(Xy, n, c):
     return X, y, m
 
 def trainModel():
-
     start_time = time.time() # To measure script running time
 
     os.environ["TF_CPP_MIN_LOG_LEVEL"] = str(2)  # Make TensorFlow log errors only
