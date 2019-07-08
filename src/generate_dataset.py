@@ -1,6 +1,7 @@
 import time
 import numpy as np
 from utils import TerminalText as tt
+import constants
 from generate_games import generateGames
 from generate_labels import generateLabels
 from generate_features import generateFeatures
@@ -28,28 +29,28 @@ print(tt.GREEN + "Board Size: " + tt.END + f"{N}x{N}")
 print("")
 if not areGamesGenerated:
     games = generateGames(N)
-    np.save("./src/generated/games.npy", games) # Save generated games
+    np.save(constants.GAMES_DIR, games) # Save generated games
 else:
     print(tt.GREEN + "Games already generated. Loading games..." + tt.END)
-    games = np.load("./src/generated/games.npy")
+    games = np.load(constants.GAMES_DIR)
 
 M = len(games)
 
 print("")
 if not areLabelsGenerated:
     labels = generateLabels(N, games)
-    np.save("./src/generated/labels.npy", labels) # Save generated labels
+    np.save(constants.LABELS_DIR, labels) # Save generated labels
 else:
     print(tt.GREEN + "Labels already generated. Loading labels..." + tt.END)
-    labels = np.load("./src/generated/labels.npy")
+    labels = np.load(constants.LABELS_DIR)
 
 print("")
 if not areFeaturesGenerated:
     features = generateFeatures(games, M, pow(N, 2))
-    np.save("./src/generated/features.npy", features) # Save generated features
+    np.save(constants.FEATURES_DIR, features) # Save generated features
 else:
     print(tt.GREEN + "Features already generated. Loading features..." + tt.END)
-    features = np.load("./src/generated/features.npy")
+    features = np.load(constants.FEATURES_DIR)
 
 total_time = time.time() - start_time
 

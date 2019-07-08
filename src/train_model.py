@@ -3,6 +3,7 @@ import time
 import numpy as np
 import tensorflow as tf
 import matplotlib.pyplot as mplt
+import constants
 from utils import TerminalText as tt
 
 # Don't run this script before generating dataset
@@ -20,8 +21,8 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = str(2)  # Make TensorFlow log errors only
 print("")
 print(tt.BLUE + "Loading dataset..." + tt.END)
 
-examples = np.load("./src/generated/features.npy")
-labels = np.load("./src/generated/labels.npy")
+examples = np.load(constants.FEATURES_DIR)
+labels = np.load(constants.LABELS_DIR)
 
 M = examples.shape[0] # Number of examples
 N = examples.shape[1] # Number of features
@@ -91,7 +92,7 @@ test_accuracy = model.evaluate(X_test, y_test)[1]
 print(tt.BLUE + "Accuracy on test set: " + tt.END + f"{'%.2f' % (test_accuracy * 100)}%")
 
 # Save entire model to an HDF5 file, so it can be used later without the need to be trained again
-model.save('./src/generated/3t_model.h5')
+model.save(constants.MODEL_DIR)
 
 print(tt.BLUE + "Model saved." + tt.END)
 
