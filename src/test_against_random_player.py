@@ -13,7 +13,7 @@ def playRandomMove(game):
 model = tf.keras.models.load_model(constants.MODEL_DIR)
 
 G = 10000 # Number of games against random player
-
-base_board = np.full(NxN, constants.EMPTY_CELL, np.uint8)
+N = constants.BOARD_SIZE
 
 for i in range(G):
+    current_game = np.full(N, constants.EMPTY_CELL, np.uint8)
