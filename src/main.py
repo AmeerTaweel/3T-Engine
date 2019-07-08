@@ -5,77 +5,98 @@ import tensorflow as tf
 import matplotlib.pyplot as mplt
 from utils import TerminalText as tt
 
-os.environ["TF_CPP_MIN_LOG_LEVEL"] = str(2)  # Make TensorFlow log errors only
-
 # Don't run this script before generating dataset
 
-start_time = time.time() # To measure script running time
+def splitXy(Xy, n, c):
+    X = Xy[:, 0 : n]
+    y = Xy[:, n : n + c]
+    m = len(Xy)
+    return X, y, m
 
-print("")
-print(tt.GREEN + "Loading dataset..." + tt.END)
+def trainModel():
 
-examples = np.load("./src/generated/features.npy")
-labels = np.load("./src/generated/labels.npy")
+    start_time = time.time() # To measure script running time
 
-M = examples.shape[0] # Number of examples
-N = examples.shape[1] # Number of features
-C = labels.shape[1] # Number of classes
+    os.environ["TF_CPP_MIN_LOG_LEVEL"] = str(2)  # Make TensorFlow log errors only
 
-print(tt.GREEN + "Number of examples: " + tt.END + f"{M}")
-print(tt.GREEN + "Number of features: " + tt.END + f"{N}")
-print(tt.GREEN + "Number of classes: " + tt.END + f"{C}")
+    print("")
+    print(tt.BLUE + "Loading dataset..." + tt.END)
 
-# Merge examples and labels to shuffle
-# We do this in order to keep each label in the same index of the corresponding example
-Xy_shuffled = np.zeros((M, N + C), np.uint8)
-print(tt.GREEN + "Merging examples with labels in order to shuffle..." + tt.END)
-for example, label, merge in zip(examples, labels, Xy_shuffled):
-    merge[0 : N] = example
-    merge[N : N + C] = label
+    examples = np.load("./src/generated/features.npy")
+    labels = np.load("./src/generated/labels.npy")
 
-print(tt.GREEN + "Shuffling dataset..." + tt.END)
-np.random.shuffle(Xy_shuffled)
+    M = examples.shape[0] # Number of examples
+    N = examples.shape[1] # Number of features
+    C = labels.shape[1] # Number of classes
 
-print(tt.GREEN + "Splitting dataset into training and test datasets..." + tt.END)
+    print(tt.BLUE + "Number of examples: " + tt.END + f"{M}")
+    print(tt.BLUE + "Number of features: " + tt.END + f"{N}")
+    print(tt.BLUE + "Number of classes: " + tt.END + f"{C}")
 
-# Split into training and test set
-training_percentage = 0.7 # The remaining 1 - training_percentage will be the test percentage
+    # Merge examples and labels to shuffle
+    # We do this in order to keep each label in the same index of the corresponding example
+    Xy_shuffled = np.zeros((M, N + C), np.uint8)
+    print(tt.BLUE + "Merging examples with labels in order to shuffle..." + tt.END)
+    for example, label, merge in zip(examples, labels, Xy_shuffled):
+        merge[0 : N] = example
+        merge[N : N + C] = label
 
-# pylint: disable=unbalanced-tuple-unpacking
-# The comment above prevents pylint from showing a false warning
-Xy_training, Xy_test = np.split(Xy_shuffled, [int(training_percentage * M)])
+    print(tt.BLUE + "Shuffling dataset..." + tt.END)
+    np.random.shuffle(Xy_shuffled)
 
-# Separate examples and labels
-X_training = Xy_training[:, 0 : N]
-y_training = Xy_training[:, N : N + C]
-m_training = len(X_training)
+    print(tt.BLUE + "Splitting dataset into training, validation and test sets..." + tt.END)
 
-print(tt.GREEN + "Number of training examples: " + tt.END + f"{m_training}")
+    # Split into training and test set
+    t_p = 0.6 # Training set percentage
+    v_p = 0.2 # Validation set percentage. The remaining (1 - tp - vp) will be the test set percentage
 
-X_test = Xy_test[:, 0 : N]
-y_test = Xy_test[:, N : N + C]
-m_test = len(X_test)
+    # pylint: disable=unbalanced-tuple-unpacking
+    # The comment above prevents pylint from showing a false warning
+    Xy_train, Xy_val, Xy_test = np.split(Xy_shuffled, [int(t_p * M), int((t_p + v_p) * M)])
 
-print(tt.GREEN + "Number of test examples: " + tt.END + f"{m_test}")
+    # Separate examples and labels
+    X_train, y_train, m_train = splitXy(Xy_train, N, C)
+    X_val, y_val, m_val = splitXy(Xy_val, N, C)
+    X_test, y_test, m_test = splitXy(Xy_test, N, C)
 
-# Setup model layers
-model = tf.keras.Sequential([
-    tf.keras.layers.Dense(N, tf.nn.sigmoid),
-    tf.keras.layers.Dense(C, tf.nn.softmax)
-])
+    print(tt.BLUE + "Number of training examples: " + tt.END + f"{m_train}")
+    print(tt.BLUE + "Number of validation examples: " + tt.END + f"{m_val}")
+    print(tt.BLUE + "Number of test examples: " + tt.END + f"{m_test}")
 
-model.compile(tf.keras.optimizers.Adam(), "categorical_crossentropy", ["accuracy"])
+    h_layers = 10 * N # Number of hidden layers
+    d_prob = 0.05 # Dropout probability
+    epochs = 500
 
-print(tt.GREEN + "Training the model..." + tt.END)
+    # Setup model layers
+    model = tf.keras.Sequential([
+        tf.keras.layers.Dropout(d_prob),
+        tf.keras.layers.Dense(h_layers, tf.nn.relu),
+        tf.keras.layers.Dense(C, tf.nn.softmax)
+    ])
 
-training_history = model.fit(X_training, y_training, epochs = 10)
+    model.compile(tf.keras.optimizers.Adam(), "categorical_crossentropy", ["accuracy"])
 
-print(tt.GREEN + "Finished training the model." + tt.END)
+    print(tt.BLUE + "Training the model..." + tt.END)
 
-mplt.xlabel("Number of Epochs") # Plot the loss over epochs
-mplt.ylabel("Loss Magnitude")
-mplt.plot(training_history.history["loss"])
-mplt.show()
+    # None is the batch size (We want to run through all examples in each epoch)
+    train_history = model.fit(X_train, y_train, epochs=epochs, validation_data=(X_val, y_val))
 
-test_loss, test_accuracy = model.evaluate(X_test, y_test)
-print('Accuracy on test dataset:', test_accuracy)
+    print(tt.BLUE + "Finished training the model." + tt.END)
+
+    mplt.xlabel("Number of Epochs") # Plot the loss over epochs
+    mplt.ylabel("Loss Magnitude")
+    mplt.plot(train_history.history["loss"])
+    mplt.plot(train_history.history["val_loss"])
+    mplt.show()
+
+    test_accuracy = model.evaluate(X_test, y_test)[1]
+    print(tt.BLUE + "Accuracy on test set: " + tt.END + f"{'%.2f' % (test_accuracy * 100)}%")
+
+    # Save entire model to an HDF5 file, so it can be used later without the need to be trained again
+    model.save('./src/generated/3t_model.h5')
+
+    print(tt.BLUE + "Model saved." + tt.END)
+
+    total_time = time.time() - start_time
+    print(tt.BLUE + "Trained and saved model in" + tt.END 
+    + f" {'%.2f' % total_time} " + tt.BLUE + "seconds." + tt.END)
