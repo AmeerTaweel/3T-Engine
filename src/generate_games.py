@@ -75,9 +75,8 @@ def generateGames(N):
     M = len(games)
 
     total_time = time.time() - start_time
-    running_time_in_seconds = "%.2f" % total_time # Formatted running time
 
     print(tt.BLUE + "Generated " + tt.END + f"{M}" + tt.BLUE + " games in" + tt.END
-        + f" {running_time_in_seconds} " + tt.BLUE + "seconds." + tt.END)
+        + f" {'%.2f' % total_time} " + tt.BLUE + "seconds." + tt.END)
 
     return games

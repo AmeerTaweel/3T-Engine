@@ -52,9 +52,8 @@ else:
     features = np.load("./src/generated/features.npy")
 
 total_time = time.time() - start_time
-running_time_in_seconds = "%.2f" % total_time # Formatted running time
 
 print("")
 print(tt.GREEN + "Generated dataset with " + tt.END + f"{M}" + tt.GREEN + " games in" + tt.END
-        + f" {running_time_in_seconds} " + tt.GREEN + "seconds." + tt.END)
+        + f" {'%.2f' % total_time} " + tt.GREEN + "seconds." + tt.END)
 print("")
