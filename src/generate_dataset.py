@@ -9,7 +9,7 @@ from generate_features import generateFeatures
 start_time = time.time() # To measure script running time
 
 # Number of rows/columns in the game board
-N = 3 # N can"t be less than one 
+N = constants.BOARD_SIZE # N can"t be less than one 
 areGamesGenerated = bool(0) # Change it to True if games are already saved in the generated folder
 areLabelsGenerated = bool(0) # // // // // // labels // // // // // // //
 areFeaturesGenerated = bool(0) # // // // // // features // // // // // // //
