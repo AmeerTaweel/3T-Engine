@@ -63,14 +63,14 @@ def trainModel():
     print(tt.BLUE + "Number of validation examples: " + tt.END + f"{m_val}")
     print(tt.BLUE + "Number of test examples: " + tt.END + f"{m_test}")
 
-    h_layers = 10 * N # Number of hidden layers
+    units = 10 * N # Number of units in the hidden layer
     d_prob = 0.05 # Dropout probability
     epochs = 500
 
     # Setup model layers
     model = tf.keras.Sequential([
         tf.keras.layers.Dropout(d_prob),
-        tf.keras.layers.Dense(h_layers, tf.nn.relu),
+        tf.keras.layers.Dense(units, tf.nn.relu),
         tf.keras.layers.Dense(C, tf.nn.softmax)
     ])
 
@@ -100,3 +100,5 @@ def trainModel():
     total_time = time.time() - start_time
     print(tt.BLUE + "Trained and saved model in" + tt.END 
     + f" {'%.2f' % total_time} " + tt.BLUE + "seconds." + tt.END)
+
+trainModel()
