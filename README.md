@@ -10,7 +10,7 @@
 
 To generate a set of all possible Tic Tac Toe positions in a certain board dimensions, with the best possible move for each position as labels, run the `generate_dataset.py` script in the `src/` folder. The default is a **3 by 3** board but you can change that by changing the variable `N`.
 
-### Train Model
+### Training The Model
 
 To train a neural network on the dataset generated in the last step, run the`train_model.py` script. It will train a neural network using **TensorFlow**, and then save it to `src/generated/3t_model.h5` so it can be used later without the need to train it again each time you want to use it.
 
