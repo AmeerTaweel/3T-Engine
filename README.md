@@ -38,6 +38,8 @@ To test the trained model against a random player to check its performance, run 
 
 ## Demo
 
+This sub-project is a demo for the trained model produced by the engine.
+
 ### Setup
 
 ```bash
