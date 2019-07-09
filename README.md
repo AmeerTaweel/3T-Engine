@@ -21,12 +21,14 @@ You can customize many aspects of the `train_model.py` by changing the following
 | Percentage of test set              | **t_p**       | `float` | 0.6           |
 | Percentage of validation set __*__  | **v_p**       | `float` | 0.2           |
 | Number of units in the hidden layer | **units**     | `int`   | 10**N** __*__ |
-| Dropout probability                 | **d_prob**    | `float` | 0.05          |
+| Dropout probability                 | **d_prob**    | `float` | 0.05 __*__    |
 | Number of epochs                    | **epochs**    | `int`   | 500           |
 
 __*__ The remaining **`1 - t_p - v_p`** is the percentage of the test set.
 
 __*__ **N** is the number of features.
+
+__*__ You can turn dropout of by setting **`d_prob`** to **0**. Maximum is **1**.
 
 **You should generate the dataset before running this script.**
 
