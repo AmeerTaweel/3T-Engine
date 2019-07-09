@@ -32,8 +32,6 @@ __*__ You can turn dropout of by setting **`d_prob`** to **0**. Maximum is **1**
 
 **You should generate the dataset before running this script.**
 
-### Testing The Model
-
-#### Testing against a random player
+### Testing The Model Against A Random Player
 
 To test the trained model against a random player to check its performance, run the `test_against_random_player.py` script. You can specify the number of games you want it to play, and then after it's done, you get the results.
