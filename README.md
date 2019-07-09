@@ -12,7 +12,7 @@ To generate a set of all possible Tic Tac Toe positions in a certain board dimen
 
 ### Training The Model
 
-To train a neural network on the dataset generated in the last step, run the`train_model.py` script. It will train a neural network using **TensorFlow**, and then save it to `src/generated/3t_model.h5` so it can be used later without the need to train it again each time you want to use it.
+To train a neural network on the dataset generated in the last step, run the `train_model.py` script. It will train a neural network using **TensorFlow**, and then save it to `src/generated/3t_model.h5` so it can be used later without the need to train it again each time you want to use it.
 
 You can customize many aspects of the `train_model.py` by changing the following variables:
 
@@ -28,4 +28,10 @@ __*__ The remaining **`1 - t_p - v_p`** is the percentage of the test set.
 
 __*__ **N** is the number of features.
 
-You should generate the dataset before running this script.
+**You should generate the dataset before running this script.**
+
+### Testing The Model
+
+#### Testing against a random player
+
+To test the trained model against a random player to check it's performance, run the `test_against_random_player.py` script. You can specify the number of games you want it to play, and then after it's done, you get the results.
