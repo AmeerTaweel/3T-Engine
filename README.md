@@ -24,14 +24,14 @@ You can customize many aspects of the `train_model.py` by changing the following
 | Dropout probability                 | **d_prob**    | `float` | 0.05 __*__    |
 | Number of epochs                    | **epochs**    | `int`   | 500           |
 
-__*__ The remaining **`1 - t_p - v_p`** is the percentage of the test set.
+__*__ The remaining `1 - t_p - v_p` is the percentage of the test set.
 
 __*__ **N** is the number of features.
 
-__*__ You can turn dropout of by setting **`d_prob`** to **0**. Maximum is **1**.
+__*__ You can turn dropout of by setting `d_prob` to **0**. Maximum is **1**.
 
 **You should generate the dataset before running this script.**
 
 ### Testing The Model Against A Random Player
 
-To test the trained model against a random player to check its performance, run the `test_against_random_player.py` script. You can specify the number of games you want it to play, and then after it's done, you get the results.
+To test the trained model against a random player to check its performance, run the `test_against_random_player.py` script. You can specify for how many games you want to test by changing the variable `G`. When the test is done, you get the results for how many wins, losses, and draws occurred.
