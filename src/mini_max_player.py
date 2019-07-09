@@ -20,7 +20,7 @@ def genrateChildren(node, size, p_type):
         boards.append(nextLevel)
     return boards
 
-def minMax(node, n, isMax, goal):
+def miniMax(node, n, isMax, goal):
     state = getGameState(np.reshape(node.game, (-1, n)))
     if  state > constants.GAME_INCOMPLETE:
         if state == goal:
@@ -34,8 +34,8 @@ def minMax(node, n, isMax, goal):
     p_type = getPlayingType(node.game)
     node.children = genrateChildren(node, pow(n, 2), p_type)
     if isMax:
-        return np.max([minMax(child, n, False, goal) for child in node.children])
-    return np.min([minMax(child, n, True, goal) for child in node.children])
+        return np.max([miniMax(child, n, False, goal) for child in node.children])
+    return np.min([miniMax(child, n, True, goal) for child in node.children])
 
 def predictBestNextMove(game, N):
     """
@@ -58,7 +58,7 @@ def predictBestNextMove(game, N):
     nextBest = None
 
     for move in nextMoves:
-        score = minMax(move, N, False, goal)
+        score = miniMax(move, N, False, goal)
         if bestScore == None or score > bestScore:
             bestScore = score
             nextBest = move.index

@@ -28,7 +28,7 @@ def generateLabels(N, games):
 
     for i, game in enumerate(games):
         percentage = "%.2f" % (((i + 1) / M) * 100) # Limit to two decimal points
-        print(tt.ERASE + tt.BLUE + "MinMax Predicting Best Moves: " + tt.END + f"{percentage}%")
+        print(tt.ERASE + tt.BLUE + "MiniMax Predicting Best Moves: " + tt.END + f"{percentage}%")
         labels[i, predictBestNextMove(game, N)] = 1
 
     total_time = time.time() - start_time
