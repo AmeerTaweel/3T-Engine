@@ -34,4 +34,4 @@ __*__ **N** is the number of features.
 
 #### Testing against a random player
 
-To test the trained model against a random player to check it's performance, run the `test_against_random_player.py` script. You can specify the number of games you want it to play, and then after it's done, you get the results.
+To test the trained model against a random player to check its performance, run the `test_against_random_player.py` script. You can specify the number of games you want it to play, and then after it's done, you get the results.
