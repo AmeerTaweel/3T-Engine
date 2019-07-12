@@ -2,7 +2,7 @@
   <div id="app" class="w-100 h-100 p-3">
     <div id="screen" class="d-flex flex-column align-items-center h-100">
       <h1>3T Tic Tac Toe Engine Demo</h1>
-      <div id="canvas" class="m-4 flex-grow-1 bg-white rounded border-secondary">dfbe</div>
+      <div id="canvas" class="m-4 flex-grow-1 bg-white rounded border border-dark">dfbe</div>
       <h1>Player: 0 | Tie: 0 | Computer: 0</h1>
     </div>
   </div>
@@ -36,7 +36,7 @@ export default {
 
 <style lang="sass">
 // Color Variables
-$pickled-bluewood: #2c3e50
+$pickled-bluewood: #273849
 $ocean-green: #42B983
 $white: #ffffff
 
@@ -52,7 +52,4 @@ $secondary-color: $pickled-bluewood
   color: white
   background-color: $primary-color
   overflow: hidden
-
-.border-secondary
-  border: 3px solid $secondary-color
 </style>
