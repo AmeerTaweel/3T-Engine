@@ -4,11 +4,7 @@
       <h1>3T Tic Tac Toe Engine Demo</h1>
       <div id="canvas" class="m-4 flex-grow-1 bg-white rounded border border-dark">
         <div class="w-100 h-100 d-flex flex-wrap">
-          <div
-            class="cell d-flex justify-content-center align-items-center display-1 border border-dark"
-            v-for="(cell, i) in game_disp"
-            :key="i"
-          >{{cell}}</div>
+          <div class="cell d-flex justify-content-center align-items-center display-1 border border-dark" v-for="(cell, i) in gameDisp" :key="i" @click="userInput(i)">{{cell}}</div>
         </div>
       </div>
       <h1>Player: 0 | Tie: 0 | Computer: 0</h1>
@@ -21,10 +17,10 @@ export default {
   name: `app`,
   data() {
     return {
-      game_disp: [],
+      gameDisp: [],
       game: [],
-      types: [{ num: 1, disp: `X` }, { num: 2, disp: `O` }],
-      players_types: []
+      types: [],
+      blockUserInput: true
     };
   },
   methods: {
@@ -38,10 +34,31 @@ export default {
       }
     },
     newGame() {
-      this.game_disp = new Array(9).fill(``)
+      this.gameDisp = new Array(9).fill(``)
       this.game = new Array(9).fill(0)
+      const pTypes = [{ num: 1, disp: `X` }, { num: 2, disp: `O` }]
+      const rTypes = [[0, 1], [1, 0]]
+      const cTypes = rTypes[Math.round(Math.random())]
+      this.types = [pTypes[cTypes[0]], pTypes[cTypes[1]]]
+      if(this.types[0].num === 1) {
+        this.userTurn()
+      }
     },
-    userInput(type, i) {}
+    userTurn() {
+      this.blockUserInput = false
+    },
+    userInput(i) {
+      if(!this.blockUserInput && this.game[i] === 0) {
+        this.fillCell(i, this.types[0])
+      }
+    },
+    fillCell(i, type) {
+      this.gameDisp[i] = type.disp
+      this.game[i] = type.num
+    }
+  },
+  created() {
+    this.newGame()
   },
   mounted() {
     this.$nextTick(() => {
