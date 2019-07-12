@@ -6,7 +6,7 @@
         <div class="w-100 h-100 d-flex flex-wrap">
           <div
             class="cell d-flex justify-content-center align-items-center display-1 border border-dark"
-            v-for="(cell, i) in game"
+            v-for="(cell, i) in game_disp"
             :key="i"
           >{{cell}}</div>
         </div>
@@ -21,30 +21,38 @@ export default {
   name: `app`,
   data() {
     return {
-      game: [`X`, `O`, `X`, `X`, `O`, `X`, `X`, `O`, `X`]
+      game_disp: [],
+      game: [],
+      types: [{ num: 1, disp: `X` }, { num: 2, disp: `O` }],
+      players_types: []
     };
   },
   methods: {
     maintainAspectRatio() {
-      const screen = document.getElementById(`screen`);
-      const canvas = document.getElementById(`canvas`);
-      canvas.style.width = `${canvas.offsetHeight}px`;
+      const screen = document.getElementById(`screen`)
+      const canvas = document.getElementById(`canvas`)
+      canvas.style.width = `${canvas.offsetHeight}px`
       if (canvas.offsetHeight > screen.offsetWidth) {
-        canvas.style.width = `${screen.offsetWidth}px`;
-        canvas.style.height = `${screen.offsetWidth}px`;
+        canvas.style.width = `${screen.offsetWidth}px`
+        canvas.style.height = `${screen.offsetWidth}px`
       }
-    }
+    },
+    newGame() {
+      this.game_disp = new Array(9).fill(``)
+      this.game = new Array(9).fill(0)
+    },
+    userInput(type, i) {}
   },
   mounted() {
     this.$nextTick(() => {
       // The whole view is rendered, so the DOM can be accessed safely
-      this.maintainAspectRatio();
+      this.maintainAspectRatio()
       window.addEventListener("resize", () => {
-        this.maintainAspectRatio();
-      });
-    });
+        this.maintainAspectRatio()
+      })
+    })
   }
-};
+}
 </script>
 
 <style lang="sass">
