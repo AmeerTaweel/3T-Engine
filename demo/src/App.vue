@@ -1,13 +1,13 @@
 <template>
   <div id="app" class="w-100 h-100 p-3">
     <div id="screen" class="d-flex flex-column align-items-center h-100">
-      <h1>3T Tic Tac Toe Engine Demo</h1>
+      <h1 class="unselectable-text">3T Tic Tac Toe Engine Demo</h1>
       <div id="canvas" class="m-4 flex-grow-1 bg-white rounded border border-dark">
         <div class="w-100 h-100 d-flex flex-wrap">
           <div class="cell d-flex justify-content-center align-items-center display-1 border border-dark" v-for="(cell, i) in gameDisp" :key="i" @click="userInput(i)">{{cell}}</div>
         </div>
       </div>
-      <h1>Player: 0 | Tie: 0 | Computer: 0</h1>
+      <h1 class="unselectable-text">Player: 0 | Tie: 0 | Computer: 0</h1>
     </div>
   </div>
 </template>
@@ -90,4 +90,10 @@ $secondary-color: #273849
 	width: (1 / 3) * 100%
 	height: (1 / 3) * 100%
 	color: $secondary-color
+
+.unselectable-text
+  -webkit-user-select: none /* Safari */        
+  -moz-user-select: none /* Firefox */
+  -ms-user-select: none /* IE10+/Edge */
+  user-select: none /* Standard */
 </style>
