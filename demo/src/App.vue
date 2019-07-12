@@ -48,21 +48,16 @@ export default {
 </script>
 
 <style lang="sass">
-// Color Variables
-$pickled-bluewood: #273849
-$ocean-green: #42B983
-$white: #ffffff
-
 // Theme
-$primary-color: $ocean-green
-$secondary-color: $pickled-bluewood
+$primary-color: #FFEB3B
+$secondary-color: #273849
 
 #app
 	font-family: 'Avenir', Helvetica, Arial, sans-serif
 	-webkit-font-smoothing: antialiased
 	-moz-osx-font-smoothing: grayscale
 	text-align: center
-	color: white
+	color: $secondary-color
 	background-color: $primary-color
 	overflow: hidden
 
