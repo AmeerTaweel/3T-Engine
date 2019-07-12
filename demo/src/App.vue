@@ -50,11 +50,12 @@ export default {
     userInput(i) {
       if(!this.blockUserInput && this.game[i] === 0) {
         this.fillCell(i, this.types[0])
+        this.blockUserInput = true
       }
     },
     fillCell(i, type) {
-      this.gameDisp[i] = type.disp
-      this.game[i] = type.num
+      this.$set(this.gameDisp, i, type.disp)
+      this.$set(this.game, i, type.num)
     }
   },
   created() {
