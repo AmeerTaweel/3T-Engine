@@ -1,24 +1,4 @@
 src/__pycache__/
 src/generated/
 
-demo/.DS_Store
-demo/node_modules
-demo/dist
-
-# local env files
-demo/.env.local
-demo/.env.*.local
-
-# Log files
-demo/npm-debug.log*
-demo/yarn-debug.log*
-demo/yarn-error.log*
-
-# Editor directories and files
-demo/.idea
-demo/.vscode
-demo/*.suo
-demo/*.ntvs*
-demo/*.njsproj
-demo/*.sln
-demo/*.sw?
+demo/

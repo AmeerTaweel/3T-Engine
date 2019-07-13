@@ -35,31 +35,3 @@ __*__ You can turn dropout of by setting `d_prob` to **0**. Maximum is **1**.
 ### Testing The Model Against A Random Player
 
 To test the trained model against a random player to check its performance, run the `test_against_random_player.py` script. You can specify for how many games you want to test by changing the variable `G`. When the test is done, you get the results for how many wins, losses, and draws occurred.
-
-## Demo
-
-This sub-project is a demo for the trained model produced by the engine.
-
-### Setup
-
-```bash
-npm install
-```
-
-### Compiles And Hot-Reloads For Development
-
-```bash
-npm run serve
-```
-
-### Compiles And Minifies For Production
-
-```bash
-npm run build
-```
-
-### Lints And Fixes Files
-
-```bash
-npm run lint
-```
