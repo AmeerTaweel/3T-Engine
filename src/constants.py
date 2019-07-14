@@ -12,5 +12,4 @@ GAMES_DIR = "./src/generated/games.npy"
 LABELS_DIR = "./src/generated/labels.npy"
 FEATURES_DIR = "./src/generated/features.npy"
 MODEL_DIR = "./src/generated/3t_model.h5"
-JS_MODEL_DIR = "./src/generated/js_demo/"
 BOARD_SIZE = 3

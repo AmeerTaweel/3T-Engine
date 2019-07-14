@@ -94,7 +94,6 @@ print(tt.BLUE + "Accuracy on test set: " + tt.END + f"{'%.2f' % (test_accuracy *
 
 # Save entire model to an HDF5 file, so it can be used later without the need to be trained again
 model.save(constants.MODEL_DIR)
-tfjs.converters.save_keras_model(model, constants.JS_MODEL_DIR)
 
 print(tt.BLUE + "Model saved." + tt.END)
 
