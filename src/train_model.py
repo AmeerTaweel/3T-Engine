@@ -69,7 +69,7 @@ epochs = 500
 
 # Setup model layers
 model = tf.keras.Sequential([
-    tf.keras.layers.Dropout(d_prob),
+    tf.keras.layers.Dropout(d_prob, input_shape=(C,)),
     tf.keras.layers.Dense(units, tf.nn.relu),
     tf.keras.layers.Dense(C, tf.nn.softmax)
 ])
