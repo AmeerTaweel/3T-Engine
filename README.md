@@ -1,6 +1,6 @@
 # 3T Engine
 
-**Triple Three Engine** is a Tic Tac Toe engine. It uses **Machine Learning (ML)** to predict the best move in a given Tic Tac Toe position. It can be trained to predict the best move in any board size, although the default is a **3 by 3** board. **Checkout <a href="https://ttt-engine.web.app/" target="_blank">the project demo</a>**.
+**Triple Three Engine** is a Tic Tac Toe engine. It uses **Machine Learning (ML)** to predict the best move in a given Tic Tac Toe position. It can be trained to predict the best move in any board size, although the default is a **3 by 3** board. **Checkout [the project demo](https://ttt-engine.web.app/)**.
 
 ## How to use
 
